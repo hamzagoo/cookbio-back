@@ -8,7 +8,6 @@ import com.cook.bio.business.Services;
 @RestController("/user")
 public class UserController {
 
-
 	@Autowired
 	private Services services;
 }
