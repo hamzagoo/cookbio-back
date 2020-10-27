@@ -15,19 +15,13 @@ import com.cook.bio.models.User;
 @Service
 public class ServicesCookAndBio implements Services {
 
-	private CartRepository cartRepository;
-	private ProductRespository productRespository;
-	private UserRepository userRepository;
-
 	@Autowired
-	public ServicesCookAndBio(CartRepository cartRepository, ProductRespository productRespository,
-			UserRepository userRepository) {
-		this.cartRepository = cartRepository;
-		this.productRespository = productRespository;
-		this.userRepository = userRepository;
-	}
-
-	@Override
+	private CartRepository cartRepository;
+	@Autowired
+	private ProductRespository productRespository;
+	@Autowired
+	private UserRepository userRepository;
+	
 	public List<Cart> getCart(Long idUser) {
 		if (idUser != null) {
 			return this.cartRepository.findByUser(idUser);
@@ -35,26 +29,26 @@ public class ServicesCookAndBio implements Services {
 		return null;
 	}
 
-	@Override
+	
 	public User getUser(String username, String password) {
 		return null;
 	}
 
-	@Override
 	public List<Product> getProducts() {
 
 		return this.productRespository.findAll();
 	}
 
-	@Override
-	public void createProduct(Product product) {
+	
+	public Product createProduct(Product product) {
 
 		if (product != null) {
-			this.productRespository.save(product);
+			return this.productRespository.save(product);
 		}
+		return null;
 	}
 
-	@Override
+	
 	public void updateProduct(Product product) {
 
 		if (product != null) {
@@ -62,12 +56,13 @@ public class ServicesCookAndBio implements Services {
 		}
 	}
 
-	@Override
-	public void deleteProduct(Product product) {
+	
+	public void deleteProduct(Long id) {
 
-		if (product != null) {
-			this.productRespository.delete(product);
+		if (id != null) {
+			this.productRespository.deleteById(id);;
 		}
 	}
+
 
 }

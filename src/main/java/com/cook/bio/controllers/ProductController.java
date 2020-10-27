@@ -7,14 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cook.bio.business.Services;
 import com.cook.bio.models.Product;
 
-@RestController("/product")
+@RestController
+@RequestMapping("/product")
 @CrossOrigin("*")
 public class ProductController {
 
@@ -28,20 +32,26 @@ public class ProductController {
 	}
 
 	@PostMapping
-	public void createProduct(Product product) {
+	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 
-		this.services.createProduct(product);
+		if(product != null) {
+
+			Product result = this.services.createProduct(product);
+			System.out.println(result);
+			return ResponseEntity.ok().body(result); 
+		}
+		return ResponseEntity.badRequest().build();
 	}
 
 	@PutMapping
-	public void updateProduct(Product product) {
+	public void updateProduct(@RequestBody Product product) {
 
 		this.services.updateProduct(product);
 	}
 
-	@DeleteMapping
-	public void deleteProduct(Product product) {
+	@DeleteMapping("/{id}")
+	public void deleteProduct(@PathVariable("id") Long id) {
 
-		this.services.deleteProduct(product);
+		this.services.deleteProduct(id);
 	}
 }
