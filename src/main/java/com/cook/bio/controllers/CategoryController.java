@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cook.bio.business.Services;
 import com.cook.bio.models.Cart;
-import com.cook.bio.models.User;
+import com.cook.bio.models.Category;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/category")
 @CrossOrigin("*")
-public class CartController {
+public class CategoryController {
 
 	@Autowired
 	private Services services;
+	
+	@GetMapping
+	public ResponseEntity<List<Category>> getCategories() {
 
-	@GetMapping("/{idUser}")
-	public ResponseEntity<List<Cart>> getCart(@PathVariable("idUser") Long idUser) {
-
-		return ResponseEntity.ok().body(this.services.getCart(idUser));
+		return ResponseEntity.ok().body(this.services.getCategories());
 	}
 }
