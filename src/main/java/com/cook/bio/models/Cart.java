@@ -1,5 +1,6 @@
 package com.cook.bio.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,9 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Table
 @Entity
-public class Cart {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Cart implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1312800816949015565L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
